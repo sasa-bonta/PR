@@ -7,6 +7,6 @@ from BeerMile import BeerMile
 
 if __name__ == "__main__":
     beer_mile = BeerMile("Sasha", "sasa123")
-    # beer_mile.login()
+    beer_mile.login()
     beer_mile.getPage()
     beer_mile.getTop1000()

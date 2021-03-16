@@ -55,14 +55,11 @@ class BeerMile:
             records.append(Record(nr, name, time, year, beer))
             nr += 1
 
-        records[0] = Record("Nr. | ", "Name | ", "Time | ", "Year | ", "Beer")
+        records[0] = Record("Nr.", "Name", "Time", "Year", "Beer")
 
         for rec in records:
-            print(rec.record_position)
-            print(rec.records_name)
-            print(rec.records_time)
-            print(rec.records_year)
-            print(rec.records_beer)
-            print("\n")
-
-            #flonv
+            print(rec.record_position,
+                  " | ", rec.records_name,
+                  " | ", rec.records_time,
+                  " | ", rec.records_year,
+                  " | ", rec.records_beer, "\n")
