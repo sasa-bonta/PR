@@ -64,5 +64,3 @@ class BeerMile:
             print(rec.records_year)
             print(rec.records_beer)
             print("\n")
-
-            #lalalal
