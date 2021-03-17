@@ -30,13 +30,18 @@ class BeerMile(Thread):
                   }
         request_post = requests.post(self.login_url, data=values)
         print(request_post)
+        bingo = (request_post.text).find("Logout")
+        print(bingo)
 
     def getPage(self):
         request_get = requests.get(self.top_1000)
         self.content = request_get.text
+        bingo = (request_get.text).find("Logout")
+        print(bingo)
         # print(self.content)
 
     def getTop1000(self):
+        self.getPage()
         soup = BeautifulSoup(self.content, 'lxml')
         table_html = soup.find_all('table')[0]
         # print(table_html)
