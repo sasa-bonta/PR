@@ -6,28 +6,39 @@ def chooseOption(x):
     global option
     if x == 1:
         beer_mile.getPage()
-        print("\n1: Test login")
-        print("2: Test getPage")
+        print("\n1: Test getPage")
+        print("2: Test login")
         print("3: Test getTop1000")
+        print("4: Test loginCookies")
         option = int(input("Enter the option := "))
         chooseOption(option)
 
     elif x == 2:
         beer_mile.login()
-        print("\n1: Test login")
-        print("2: Test getPage")
+        print("\n1: Test getPage")
+        print("2: Test login")
         print("3: Test getTop1000")
+        print("4: Test loginCookies")
         option = int(input("Enter the option := "))
         chooseOption(option)
 
     elif x == 3:
         beer_mile.getTop1000()
-        print("\n1: Test login")
-        print("2: Test getPage")
+        print("\n1: Test getPage")
+        print("2: Test login")
         print("3: Test getTop1000")
+        print("4: Test loginCookies")
         option = int(input("Enter the option := "))
         chooseOption(option)
 
+    elif x == 4:
+        beer_mile.getLoginCookies()
+        print("\n1: Test getPage")
+        print("2: Test login")
+        print("3: Test getTop1000")
+        print("4: Test loginCookies")
+        option = int(input("Enter the option := "))
+        chooseOption(option)
 
 option = None
 
@@ -38,6 +49,7 @@ if __name__ == "__main__":
     print("1: Test getPage")
     print("2: Test login")
     print("3: Test getTop1000")
+    print("4: Test loginCookies")
     option = int(input("Enter the option := "))
     chooseOption(option)
 

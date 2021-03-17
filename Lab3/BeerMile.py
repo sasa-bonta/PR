@@ -15,6 +15,7 @@ class BeerMile(Thread):
         self.password = password
         self.login_url = 'https://www.beermile.com/?action=login'
         self.top_1000 = 'https://www.beermile.com/records/ref_wr'
+        self.main_page = 'https://www.beermile.com/'
         self.content = ''
         self.records = []
         self.time_best_alco_runner = ''
@@ -23,6 +24,7 @@ class BeerMile(Thread):
         self.rec2 = []  # 251 - 500
         self.rec3 = []  # 501 - 750
         self.rec4 = []  # 751 - 1000
+        self.curSession = requests.Session()
 
     def login(self):
         values = {'username': self.username,
@@ -33,15 +35,35 @@ class BeerMile(Thread):
         bingo = (request_post.text).find("Logout")
         print(bingo)
 
+    def getLoginCookies(self):
+        login_url = 'https://www.beermile.com/?action=login'
+        values = {'username': self.username,
+                  'password': self.password
+                  }
+        login_cookies = self.curSession.post(self.login_url, data=values)
+        self.getPageCookies()
+
+    def getPageCookies(self):
+        request_get = self.curSession.get(self.main_page)
+        self.content = request_get.text
+        print(request_get)
+        bingo = (request_get.text).find("Logout")
+        print(bingo)
+
     def getPage(self):
-        request_get = requests.get(self.top_1000)
+        request_get = requests.get(self.main_page)
         self.content = request_get.text
         bingo = (request_get.text).find("Logout")
         print(bingo)
         # print(self.content)
 
+    def getPageTop1000(self):
+        request_get = requests.get(self.top_1000)
+        self.content = request_get.text
+        # print(self.content)
+
     def getTop1000(self):
-        self.getPage()
+        self.getPageTop1000()
         soup = BeautifulSoup(self.content, 'lxml')
         table_html = soup.find_all('table')[0]
         # print(table_html)
