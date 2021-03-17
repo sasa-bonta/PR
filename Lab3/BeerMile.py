@@ -5,8 +5,12 @@ import re
 import threading
 from threading import Thread
 
-sem = threading.Semaphore(2)
+lock = threading.Lock()
 
+proxies = {
+    'http': '124.48.218.245:80',
+    'https': '206.189.96.32:8080',
+}
 
 class BeerMile(Thread):
     def __init__(self, email, password):
@@ -30,7 +34,7 @@ class BeerMile(Thread):
         values = {'username': self.username,
                   'password': self.password
                   }
-        request_post = requests.post(self.login_url, data=values)
+        request_post = requests.post(self.login_url, data=values, proxies=proxies)
         print(request_post)
         bingo = (request_post.text).find("Logout")
         print(bingo)
@@ -41,20 +45,20 @@ class BeerMile(Thread):
                   'password': self.password
                   }
         #  all cookies received will be stored in the session object
-        self.curSession.post(self.login_url, data=values)
+        self.curSession.post(self.login_url, data=values, proxies=proxies)
         # internally return your expected cookies, can use for following auth
         self.getPageCookies()
 
     def getPageCookies(self):
         # internally use previously generated cookies, can access the resources
-        request_get = self.curSession.get(self.main_page)
+        request_get = self.curSession.get(self.main_page, proxies=proxies)
         self.content = request_get.text
         print(request_get)
         bingo = (request_get.text).find("Logout")
         print(bingo)
 
     def getPage(self):
-        request_get = requests.get(self.main_page)
+        request_get = requests.get(self.main_page, proxies=proxies)
         self.content = request_get.text
         bingo = (request_get.text).find("Logout")
         print(bingo)
@@ -136,14 +140,14 @@ class BeerMile(Thread):
             self.rec4.append(self.records[i])
 
     def getTimeDiff(self, rows):
-        sem.acquire()
+        lock.acquire()
         for rec in rows:
             diff_sec = rec.records_time - self.sec_best_alco_runner
             min = int(diff_sec) // 60
             sec = round((float(diff_sec) % 60), 2)
             rec.records_time = "+" + str(min) + ":" + str(sec)
         print(threading.current_thread())
-        sem.release()
+        lock.release()
 
     def startThreads(self):
         threads_list = []

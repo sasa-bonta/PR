@@ -1,6 +1,7 @@
 from BeerMile import BeerMile
 
 # Sasha sasa123
+# About beer mile: https://www.youtube.com/watch?v=GZIqx7hldmI&ab_channel=YuriTheProfessional
 
 def chooseOption(x):
     global option
