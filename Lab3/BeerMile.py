@@ -40,10 +40,13 @@ class BeerMile(Thread):
         values = {'username': self.username,
                   'password': self.password
                   }
-        login_cookies = self.curSession.post(self.login_url, data=values)
+        #  all cookies received will be stored in the session object
+        self.curSession.post(self.login_url, data=values)
+        # internally return your expected cookies, can use for following auth
         self.getPageCookies()
 
     def getPageCookies(self):
+        # internally use previously generated cookies, can access the resources
         request_get = self.curSession.get(self.main_page)
         self.content = request_get.text
         print(request_get)
