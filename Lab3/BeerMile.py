@@ -8,9 +8,13 @@ from threading import Thread
 lock = threading.Lock()
 
 proxies = {
-    'http': '124.48.218.245:80',
-    'https': '206.189.96.32:8080',
+    'http': 'http://uC8ADg1n:wWwVs3jr@91.239.85.148:62771',
+    'https': 'http://uC8ADg1n:wWwVs3jr@91.239.85.148:62771',
 }
+
+url_params = {
+            'Cache-Control': 'no-store'
+        }
 
 class BeerMile(Thread):
     def __init__(self, email, password):
@@ -181,3 +185,11 @@ class BeerMile(Thread):
                   " | ", format(str(rec.records_time), ' ^9s'),
                   " | ", format(str(rec.records_year), ' ^5s'),
                   " | ", format(str(rec.records_beer), ' ^20s'), "\n")
+
+    def headRequest(self):
+        x = requests.head(self.main_page, proxies=proxies)
+        print(x)
+
+    def optionsRequest(self):
+        resp = requests.options(self.main_page, params=url_params, proxies=proxies)
+        print(resp)
