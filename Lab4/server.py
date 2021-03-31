@@ -56,6 +56,10 @@ SERVER = socket(AF_INET, SOCK_STREAM)
 SERVER.bind(ADDR)
 
 if __name__ == "__main__":
+    chatterNr = open("nr", "w")
+    chatterNr.write(str(1))
+    chatterNr.close()
+
     SERVER.listen(5)
     print("Waiting for connection...")
     ACCEPT_THREAD = Thread(target=accept_incoming_connections)

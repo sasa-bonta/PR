@@ -4,6 +4,11 @@ from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 import tkinter
 
+f = open("nr", "r")
+nr = int(f.read())
+f = open("nr", "w")
+f.write(str(nr + 1))
+f.close()
 
 def receive():
     """Handles receiving of messages."""
@@ -31,13 +36,13 @@ def on_closing(event=None):
     send()
 
 top = tkinter.Tk()
-top.title("Chatter 2")
+top.title("Chatter " + str(nr))
 
 messages_frame = tkinter.Frame(top)
 my_msg = tkinter.StringVar()  # For the messages to be sent.
 scrollbar = tkinter.Scrollbar(messages_frame)  # To navigate through past messages.
 # Following will contain the messages.
-msg_list = tkinter.Listbox(messages_frame, height=15, width=50, yscrollcommand=scrollbar.set, )
+msg_list = tkinter.Listbox(messages_frame, height=15, width=50, yscrollcommand=scrollbar.set)
 scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
 msg_list.pack(side=tkinter.LEFT, fill=tkinter.BOTH)
 msg_list.pack()
