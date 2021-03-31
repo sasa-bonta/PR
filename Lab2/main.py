@@ -1,3 +1,5 @@
+#!/usr/bin/python3.8
+
 import tkinter as tk
 from MainView import MainView
 
