@@ -28,17 +28,11 @@ class VideoGrabber(Thread):
         """
         Thread.__init__(self)
         self.cap = cv2.VideoCapture(0)
-        # self.turbojpeg = TurboJPEG()
         self.running = True
         self.buffer = None
         self.lock = Lock()
 
-        if jpeg_lib == 'turbo':
-            self.jpeg                   = TurboJPEG()
-            self.jpeg_encode_func = lambda img, jpeg_quality=jpeg_quality, jpeg=self.jpeg: utils.turbo_encode_image(img, jpeg, jpeg_quality)
-
-        else:
-            self.jpeg_encode_func = lambda img, jpeg_quality=jpeg_quality: utils.cv2_encode_image(img, jpeg_quality)
+        self.jpeg_encode_func = lambda img, jpeg_quality=jpeg_quality: utils.cv2_encode_image(img, jpeg_quality)
 
 
     def stop(self):
@@ -78,8 +72,6 @@ if __name__ == '__main__':
     grabber.start()
     time.sleep(1)
 
-    turbo_jpeg = TurboJPEG()
-
     cv2.namedWindow("Image")
 
     keep_running = True
@@ -91,7 +83,6 @@ if __name__ == '__main__':
         if data is None:
             time.sleep(1)
             continue
-        img = turbo_jpeg.decode(data)
         cv2.imshow("Image", img)
         keep_running = not(cv2.waitKey(1) & 0xFF == ord('q'))
 
