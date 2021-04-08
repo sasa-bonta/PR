@@ -72,8 +72,6 @@ if __name__ == '__main__':
     grabber.start()
     time.sleep(1)
 
-    cv2.namedWindow("Image")
-
     keep_running = True
     idx = 0
     t0 = time.time()
